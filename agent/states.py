@@ -3,6 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, Field, ConfigDict
 
 
+# States for Planner Agent
 class File(BaseModel):
     path: str = Field(description="The path to the file to be created or modified")
     purpose: str = Field(
@@ -19,7 +20,7 @@ class Plan(BaseModel):
         description="A list of features that the app should have, e.g. 'user authentication', 'data visualization', etc.")
     files: list[File] = Field(description="A list of files to be created, each with a 'path' and 'purpose'")
 
-
+# States for Architect Agent
 class ImplementationTask(BaseModel):
     filepath: str = Field(description="The path to the file to be modified")
     task_description: str = Field(
@@ -32,6 +33,7 @@ class TaskPlan(BaseModel):
     model_config = ConfigDict(extra="allow")
 
 
+# States for Coder Agent
 class CoderState(BaseModel):
     task_plan: TaskPlan = Field(description="The plan for the task to be implemented")
     current_step_idx: int = Field(0, description="The index of the current step in the implementation steps")
